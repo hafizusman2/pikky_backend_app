@@ -6,13 +6,11 @@ const handleUserRegistration = async (req, res) => {
   try {
     const { email, password, role } = req.body;
     const newUser = await registerUser(email, password, role);
-    res
-      .status(201)
-      .json({
-        message: "Registration successful",
-        user: newUser,
-        success: true
-      });
+    res.status(201).json({
+      message: "Registration successful",
+      user: newUser,
+      success: true
+    });
   } catch (err) {
     res.status(500).json({
       message: `Error during registration: ${err.message}`,
