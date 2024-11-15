@@ -24,6 +24,10 @@
 
 This project is a Flight Management System that allows users to manage flight information, including searching for flights, updating flight statuses, and more. The system is built using Node.js, Express, and MongoDB, with Kafka for messaging and Redis for caching.
 
+## Architecture Diagram
+
+[Flight Management System - Task](https://excalidraw.com/#json=iTWKvErlybK657j-MyHYl,y8c8AxnWcW9O5XiP0BfjPw)
+
 ## Features
 
 - Search for flights based on various filters (airline, flight type, status).
