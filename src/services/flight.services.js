@@ -1,6 +1,12 @@
 const Flight = require("../models/Flight");
 
-const getFlights = async (filters = {}, search = "", page = 1, limit = 10) => {
+const getFlights = async (
+  filters = {},
+  search = "",
+  page = 1,
+  limit = 10,
+  all = false
+) => {
   try {
     const query = {};
 
@@ -24,13 +30,18 @@ const getFlights = async (filters = {}, search = "", page = 1, limit = 10) => {
 
     const skip = (page - 1) * limit;
 
-    const flights = await Flight.find(query)
-      .skip(skip)
-      .limit(limit)
-      .sort({ updatedAt: -1 });
-
     const totalFlights = await Flight.countDocuments(query);
 
+    let flights;
+    if (all) {
+      flights = await Flight.find(query).sort({ updatedAt: -1 });
+      limit = totalFlights;
+    } else {
+      flights = await Flight.find(query)
+        .skip(skip)
+        .limit(limit)
+        .sort({ updatedAt: -1 });
+    }
     return {
       flights,
       totalFlights,
@@ -39,6 +50,16 @@ const getFlights = async (filters = {}, search = "", page = 1, limit = 10) => {
     };
   } catch (error) {
     throw new Error(`Error fetching flights: ${error.message}`);
+  }
+};
+
+const createFlight = async flightData => {
+  try {
+    const flight = new Flight(flightData);
+    await flight.save();
+    return flight;
+  } catch (error) {
+    throw new Error(`Error creating flight: ${error.message}`);
   }
 };
 
@@ -58,5 +79,6 @@ const updateFlightStatus = async (flightNumber, status) => {
 
 module.exports = {
   getFlights,
-  updateFlightStatus
+  updateFlightStatus,
+  createFlight
 };
