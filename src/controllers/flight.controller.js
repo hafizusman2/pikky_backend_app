@@ -11,7 +11,8 @@ const getFlightsController = async (req, res) => {
       flightType,
       status,
       page = 1,
-      limit = 10
+      limit = 10,
+      all = false
     } = req.query;
 
     const filters = { airline, flightType, status };
@@ -20,7 +21,8 @@ const getFlightsController = async (req, res) => {
       filters,
       search,
       parseInt(page),
-      parseInt(limit)
+      parseInt(limit),
+      Boolean(all)
     );
 
     res.status(200).json({
