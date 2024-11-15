@@ -5,6 +5,7 @@
   "start": "start",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:dev": "jest --watch",
     "start:dev": "nodemon --trace-warnings src/main.js"
   },
   "author": "",
