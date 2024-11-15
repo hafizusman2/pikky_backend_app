@@ -63,11 +63,14 @@ const createFlight = async flightData => {
   }
 };
 
-const updateFlightStatus = async (flightNumber, status) => {
+const updateFlightStatus = async (where, updatedBody) => {
   try {
     const updatedFlight = await Flight.findOneAndUpdate(
-      { flightNumber },
-      { status },
+      where,
+      {
+        ...updatedBody,
+        updatedAt: new Date()
+      },
       { new: true }
     );
 

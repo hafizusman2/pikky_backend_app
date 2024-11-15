@@ -41,15 +41,14 @@ const getFlightsController = async (req, res) => {
   }
 };
 
-module.exports = {
-  getFlightsController
-};
-
 const updateFlightStatusController = async (req, res) => {
   try {
     const { flightNumber, status } = req.body;
 
-    const updatedFlight = await updateFlightStatus(flightNumber, status);
+    const updatedFlight = await updateFlightStatus(
+      { flightNumber },
+      { status }
+    );
 
     if (!updatedFlight) {
       return res
